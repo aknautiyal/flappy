@@ -167,6 +167,7 @@ impl State {
         }
         self.player.render(ctx);
         if self.active_enemies == 0 {
+            self.enemy_vec.clear();
             let active_enemies = rand::thread_rng().gen_range(ENEMY_NO / 2, ENEMY_NO);
             for n in 0..active_enemies {
                     self.enemy_vec.push(Enemy::new(get_rnd_x(), get_rnd_y()));
@@ -190,10 +191,8 @@ impl State {
     fn restart(&mut self, _ctx:&mut BTerm) {
         self.player = Player::new(5,25);
         self.frame_time = 0.0;
-        for enemy in self.enemy_vec.iter_mut() {
-            enemy.active = false;
-        }
         self.active_enemies = 0;
+        self.enemy_vec.clear();
         self.mode = GameMode::Playing;
 
     }
